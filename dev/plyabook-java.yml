@@ -1,0 +1,14 @@
+- name: Install Java and mvn
+  hosts: servers
+  vars:
+    java_version: 8.0
+    mvn_version: 3.6
+  tasks:
+    - name: install Java
+        yum:
+          name: java
+          state: latest
+    - name: install mvn
+        yum: maven
+          name: maven
+          state: latest
