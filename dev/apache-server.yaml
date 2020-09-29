@@ -1,0 +1,14 @@
+- name: Install Apache server
+  hosts: servers
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: install apache server
+      # install last version
+      yum:
+        name: httpd
+        state: latest
+    - name: check that service httpd is runnning
+      service:
+        name: httpd
+        state: started

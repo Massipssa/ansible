@@ -16,3 +16,9 @@
     server3 ansible_host=<client2-ip> ansible_user=<user>
     ````
   
+## Ansible basics 
+
+- Run `ansible-playbook playbook.yml`
+
+- Some modules: 
+    - yum, user, service, git 

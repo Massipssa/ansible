@@ -1,9 +1,13 @@
 - name: Install Java and mvn
   hosts: servers
   vars:
+    test: Hello from Ansible
     java_version: 8.0
     mvn_version: 3.6
   tasks:
+    - name:  Variable test
+        debug:
+        msg: "{{test}}"
     - name: install Java
         yum:
           name: java
