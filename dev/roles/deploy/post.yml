@@ -1,0 +1,15 @@
+- name: list all directories in deploy path
+  find:
+    paths: " {{ app_path }} "
+    exclude: current
+    file_type: directory
+  register: directories
+
+# TODO(not working)
+- name: delete old releases and keep only three versions
+  file:
+    path: " {{ item.path }} "
+    state: absent
+  loop: "{{ (directories.files | sort(attribute='path'))[:-3] }}"
+  loop_control:
+    label: " {{ item.path }} "

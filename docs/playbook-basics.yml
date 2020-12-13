@@ -1,0 +1,46 @@
+- name: Install Java and mvn
+  hosts: servers
+  # become sudo user, we need to be prompted for pwd --> run ansible-playbook -K
+  become: yes
+  become_method: sudo
+  # Debugger
+  debugger: on_failed
+  gather_facts: no
+
+  # variables
+  vars:
+    test: Hello from Ansible
+    # array
+    users: ["user_1", "user_2"]
+  tasks:
+    - name: Ansible Variable Basic Usage
+      debug:
+        #msg: "{{ test array[1] }}"
+        msg: "{{ users[1] }}"
+    # Loop
+    - name: Create new user
+      # User module used to manage users
+      user:
+        name: "{{item}}"
+        state: present
+      loop:
+        - massipssa
+        - lydia
+
+    - name: Remove user
+      # User module used to manage users
+      user:
+        name: "{{item}}"
+        state: absent
+        remove: yes
+      with_items: "{{users}}"
+
+    - name: Debugger
+      ping: data={{wrang_var}}
+    
+    - name: find directories
+      find:
+        path: "{{path/to/dir}}"
+        file_type: directory
+      # regisrter the ouput of the module
+      register:         

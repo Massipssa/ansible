@@ -1,0 +1,32 @@
+---
+- include_tasks: roles/deploy/init.yml
+
+- name: set zip name
+  set_fact:
+    zip_name: "{{ release_path }}.zip"
+
+# this will only connect to artifactory
+- name: dowloand zip file from Artifactory
+  uri: 
+    dest: "{{}}"
+    url: "{{}}"
+    user: "{{}}"
+    password: "{{}}"
+    validate_certs: no
+  # look for proxies in env
+  environment: "{{ proxies }}"
+
+- name: unzip the file
+  unarchive:
+    dest:  "{{ }}"
+    remote_src: yes
+    src: " {{ }}"
+
+- name: create link to  current deployment
+  file:
+    path: "{{ current_path }}"
+    src: " {{ release_path }} "
+    state: link
+    force: yes
+    
+- include_tasks: roles/deploy/post.yaml

@@ -1,0 +1,27 @@
+- hosts: servers
+  tasks:
+
+  - name: include variables
+    include_vars:
+      dir: vars/
+
+  - name: set default deploy method
+    set_fact:
+      deploy_method: pip
+      when: deploy_method is not defined
+
+  - import_role:
+      name: deploy/jar
+    when: deploy_method == "jar"
+
+  - import_role:
+      name: deploy/war
+    when: deploy_method == "war"
+    
+  - import_role:
+      name: deploy/pip
+    when: deploy_method == "pip"
+
+  - import_role:
+      name: deploy/zip
+    when: deploy_method == "zip"

@@ -1,0 +1,27 @@
+# create deploy path
+# create backup if application was deployed
+
+# the path wil be read from input
+- name: set deploy path
+  set_fact:
+    deploy_path: "{{ app_path }}"
+
+- name: set current deploy path
+  set_fact:
+    current_path: "{{ deploy_path }}/current"
+
+- name: set current path
+  set_fact:
+    release_path: "{{ deploy_path }}/{{ ansible_date_time.date }}{{ ansible_date_time.hour}}{{ ansible_date_time.minute }}{{ ansible_date_time.second }}_{{ ansible_date_time.epoch }}"
+
+- name: create deploy path
+  file:
+    path: "{{ deploy_path }}"
+    state: directory
+    mode: 0750
+
+- name: create current deploy path
+  file:
+    path: "{{ release_path }}"
+    state: directory
+    mode: 0750

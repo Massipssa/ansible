@@ -1,0 +1,18 @@
+- include_tasks: roles/deploy/init.yml
+
+#- name: install
+#  pip:
+#    extra_args: >
+#      --index-url {{ }}
+#      --trusted-host {{}}
+#     virtualenv: " {{ }}"
+#  register: out_
+
+- name: create link to  current deployment
+  file:
+    path: "{{ current_path }}"
+    src: " {{ release_path }} "
+    state: link
+    force: yes
+    
+- include_tasks: roles/deploy/post.yaml
