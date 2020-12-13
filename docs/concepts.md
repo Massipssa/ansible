@@ -76,16 +76,20 @@ dabase3.hotname
 
 ### Commands
 
-We can run command dirctely on Ansible:
+- copy file: ```ansible hosts -m copy -a "src=/path/to/src/file.txt dest=/path/to/dest/file.txt" ```
+- create a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt mode=700 owner=massi group=massi state = directory" ```
+- delete a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt state = absent" ```
+- list tags: ``ansible-playbook [playbook] --list-tags``
 
-- copy file: `ansible hosts -m copy -a "src=/path/to/src/file.txt dest=/path/to/dest/file.txt"`
-- create a file: `ansible hosts -m file -a "dest=/path/to/src/file.txt mode=700 owner=massi group=massi state = directory"`
-- delete a file: `ansible hosts -m file -a "dest=/path/to/src/file.txt state = absent"`
+
+
 
 ## Some modules
 
 - copy, file, find, yum, user, service
 - git, pip
+
+
 
 ## Roles
 
