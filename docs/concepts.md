@@ -1,18 +1,18 @@
 # Ansible
 
-- **Pull configuration:** Salves check periodically from master
-- **Push configuration:** Master push config to slaves. In this case we don't need Ansible to be installed in slaves
+- **Pull configuration:** Slaves check periodically from master
+- **Push configuration:** Master push config to slaves. In this case we don't need Ansible to be installed in the slaves.
 
 ## Architecture
- 
+
 - **Nodes**
-    - Control machine
-    - Remote machine
+  - Control machine
+  - Remote machine
 - Control machine and remote machines communicate using SSH  
 
-# Playbooks
+## Playbooks
 
-- Describe the instructions to execute    
+- Describe the instructions to execute
 - Run a playbook: ````ansible-playbook [playbook_name.yml]````
 - Example:
 
@@ -41,7 +41,7 @@
                 state: present
 ```
 
-# Inventory
+## Inventory
 
 - Defines the machines (nodes) where to deploy the artifacts
 
@@ -57,14 +57,17 @@ dabase2.hotname
 dabase3.hotname
 ```
 
-* Ansible tower: framework design to access Ansible using GUI
-* We can use Jinja templating in ansible
-* Loops: 
-```yaml 
+- Ansible tower: framework design to access Ansible using GUI
+- We can use Jinja templating in ansible
+- Loops:
+
+```yaml
     tasks: 
     - name: Install packages 
       # loops
-      apt: name={{item}} state=present  
+      apt: 
+        name: {{item}}
+        state: present  
       with_items:
         - python
         - python-pip
@@ -73,13 +76,19 @@ dabase3.hotname
 
 ### Commands
 
-- copy file: ```ansible hosts -m copy -a "src=/path/to/src/file.txt dest=/path/to/dest/file.txt" ```
-- create a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt mode=700 owner=massi group=massi state = directory" ```
-- delete a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt state = absent" ```
+We can run command dirctely on Ansible:
+
+- copy file: `ansible hosts -m copy -a "src=/path/to/src/file.txt dest=/path/to/dest/file.txt"`
+- create a file: `ansible hosts -m file -a "dest=/path/to/src/file.txt mode=700 owner=massi group=massi state = directory"`
+- delete a file: `ansible hosts -m file -a "dest=/path/to/src/file.txt state = absent"`
+
+## Some modules
+
+- copy, file, find, yum, user, service
+- git, pip
 
 ## Roles
 
 - Break tasks down to avoid large playbook
 - Way of grouping tasks together
-- Create a role: ````ansible-galaxy init [role-name]````    
-
+- Create a role: `ansible-galaxy init [role-name]`

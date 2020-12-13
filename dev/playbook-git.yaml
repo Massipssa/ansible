@@ -2,8 +2,6 @@
   hosts: servers
   vars:
     - packages: ["git"]
-    - version: "1.0"
-  remote_user: massi
   tasks:
     - name: Install "{{item}}" on #{{servers}}
       # debug:
