@@ -1,0 +1,3 @@
+- Encrypt data (at rest)
+- Encrypt file: `ansible-vault encrypt filename.yml`
+- Decrypt file: `ansible-playbook --ask-vault-pass filename.yml`
