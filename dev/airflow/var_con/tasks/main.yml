@@ -1,0 +1,25 @@
+##############################################
+## Add connections and variables to Airflow
+##############################################
+- name: List connections json files
+  find:
+    paths: "{{CONFS_PATH}}"
+    patterns: "*.json"
+  register: files_found
+- name: Add Airflow new {{API NAME}}
+  uri:
+    url: "{{hostvars[inventory_hostname].airflow url}/api/v1/{{API_NAME}}"
+    method: POST
+    user: "{{AIRFLOW_USERNAME}}"
+    password: "{{AIRFLOW_PASSWORD}}"
+    return_content: yes
+    body_format: json
+    body: "{{ lookup('file', item.path) }}"
+    headers:
+      Content-Type: "application/json"
+    force_basic_auth: yes
+    validate_certs: no
+    status_code: [ 200, 201 ]
+  with _items: {{ files_found.results | map(attribute-"files") | list }}'
+  no_log: false
+  when: files_found.results | length > 0

@@ -8,7 +8,7 @@
       yum:
         name: httpd
         state: latest
-    - name: check that service httpd is runnning
+    - name: check that service httpd is running
       service:
         name: httpd
         state: started

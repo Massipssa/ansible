@@ -1,0 +1,15 @@
+---
+- hosts: servers
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: include variables
+      include_vars:
+        dir: vars/
+    - name: Create user
+      user:
+        name: "{{ user_name }}"
+        groups:
+          - docker
+          - wheel
+        state: present

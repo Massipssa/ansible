@@ -1,7 +1,12 @@
 # Ansible
 
-- **Pull configuration:** Slaves check periodically from master
-- **Push configuration:** Master push config to slaves. In this case we don't need Ansible to be installed in the slaves.
+- It's configuration management tool
+- Hybrid language (declarative and imperative)
+- Hasn't lifecycle management
+- Agent-less  
+- Uses  
+  - **Pull configuration:** Slaves check periodically from master
+  - **Push configuration:** Master push config to slaves. In this case we don't need Ansible to be installed in the slaves.
 
 ## Architecture
 
@@ -41,6 +46,13 @@
                 state: present
 ```
 
+## Ad-hoc commands
+
+- copy file: ```ansible hosts -m copy -a "src=/path/to/src/file.txt dest=/path/to/dest/file.txt" ```
+- create a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt mode=700 owner=massi group=massi state = directory" ```
+- delete a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt state = absent" ```
+- list tags: ``ansible-playbook [playbook] --list-tags``
+
 ## Inventory
 
 - Defines the machines (nodes) where to deploy the artifacts
@@ -74,22 +86,10 @@ dabase3.hotname
         - vim
 ```
 
-### Commands
-
-- copy file: ```ansible hosts -m copy -a "src=/path/to/src/file.txt dest=/path/to/dest/file.txt" ```
-- create a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt mode=700 owner=massi group=massi state = directory" ```
-- delete a file: ```ansible hosts -m file -a "dest=/path/to/src/file.txt state = absent" ```
-- list tags: ``ansible-playbook [playbook] --list-tags``
-
-
-
-
 ## Some modules
 
 - copy, file, find, yum, user, service
 - git, pip
-
-
 
 ## Roles
 

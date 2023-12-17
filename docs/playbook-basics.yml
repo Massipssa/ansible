@@ -43,4 +43,4 @@
         path: "{{path/to/dir}}"
         file_type: directory
       # regisrter the ouput of the module
-      register:         
+      register: myvalue   

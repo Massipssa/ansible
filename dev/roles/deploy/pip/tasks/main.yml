@@ -11,7 +11,7 @@
 - name: create link to  current deployment
   file:
     path: "{{ current_path }}"
-    src: " {{ release_path }} "
+    src: "{{ release_path }}"
     state: link
     force: yes
     

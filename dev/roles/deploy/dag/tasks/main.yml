@@ -1,0 +1,19 @@
+---
+- name: Set version
+  set_fact:
+    file: "{{}}-{{}}.zip"
+
+- name: Create Dags repository
+  file:
+    path: "{{}}"
+    state: directory
+    mode: 0750
+
+- name: Download Dags code from Artifactory
+  uri:
+    dest: "{{}}"
+    url: "{{}}"
+    user: "{{}}"
+    url_password: "{{}}"
+    validate_certs: no
+  environment: "{{}}"
